@@ -1,5 +1,9 @@
 # 🛡️ Context-Aware SDN: Unified Multi-Class Network Anomaly Classification & Differentiated Auto-Remediation
 
+<p align="center">
+  <img src="Cover_image.png" alt="Context-Aware SDN Cover Banner" width="100%" />
+</p>
+
 [![Python](https://img.shields.io/badge/Python-3.8%20%7C%203.13-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![SDN Controller](https://img.shields.io/badge/Ryu-4.34-blue?logo=openflow)](https://ryu-sdn.org/)
 [![OpenFlow](https://img.shields.io/badge/OpenFlow-1.3-orange)](https://opennetworking.org/)
