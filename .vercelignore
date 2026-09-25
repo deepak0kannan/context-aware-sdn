@@ -1,0 +1,14 @@
+# Vercel Deployment Ignore File
+# Prevents Vercel from treating backend Python scripts as Serverless Functions
+app.py
+*.py
+requirements.txt
+src/
+models/
+data/
+VirtualBox/
+Virtual_box/
+Ubuntu/
+convert_to_pdf.ps1
+.system_generated/
+.user_uploaded/
