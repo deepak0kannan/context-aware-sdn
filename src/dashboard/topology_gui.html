@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context-Aware SDN — Topology Monitor</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: #0f172a; color: #f8fafc; overflow: hidden; }
+        header { padding: 16px 24px; background: #1e293b; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; }
+        h1 { font-size: 1.15rem; font-weight: 600; color: #38bdf8; display: flex; align-items: center; gap: 8px; }
+        .badge { background: #0284c7; color: white; padding: 3px 8px; border-radius: 9999px; font-size: 0.75rem; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; display: inline-block; box-shadow: 0 0 8px #22c55e; }
+        #canvas { width: 100vw; height: calc(100vh - 65px); }
+        .node circle { stroke: #38bdf8; stroke-width: 2px; }
+        .node text { font-size: 12px; fill: #e2e8f0; font-weight: 500; }
+        .link { stroke: #64748b; stroke-width: 2.5px; stroke-dasharray: 4; animation: dash 20s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -1000; } }
+        .legend { position: absolute; bottom: 20px; left: 20px; background: rgba(30, 41, 59, 0.85); padding: 12px 16px; border-radius: 8px; border: 1px solid #334155; font-size: 0.85rem; }
+        .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .legend-item:last-child { margin-bottom: 0; }
+        .legend-color { width: 14px; height: 14px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="status-dot"></span> Context-Aware SDN Live Topology</h1>
+        <div><span class="badge">OpenFlow 1.3 Active</span></div>
+    </header>
+    <svg id="canvas"></svg>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-color" style="background: #3b82f6;"></div> Ingress / Egress Switch</div>
+        <div class="legend-item"><div class="legend-color" style="background: #10b981;"></div> Path A Switch (s2)</div>
+        <div class="legend-item"><div class="legend-color" style="background: #f59e0b;"></div> Path B Switch (s3)</div>
+    </div>
+
+    <script>
+        const width = window.innerWidth;
+        const height = window.innerHeight - 65;
+        const svg = d3.select("#canvas").attr("width", width).attr("height", height);
+
+        const simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().id(d => d.id).distance(140))
+            .force("charge", d3.forceManyBody().strength(-600))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        let linkGroup = svg.append("g").attr("class", "links");
+        let nodeGroup = svg.append("g").attr("class", "nodes");
+
+        async function fetchTopology() {
+            try {
+                const swRes = await fetch('/v1.0/topology/switches');
+                const switches = await swRes.json();
+                const linkRes = await fetch('/v1.0/topology/links');
+                const links = await linkRes.json();
+
+                const nodes = switches.map(s => {
+                    const id = parseInt(s.dpid, 16);
+                    let name = "s" + id;
+                    let color = "#3b82f6";
+                    if (id === 2) color = "#10b981";
+                    if (id === 3) color = "#f59e0b";
+                    return { id: s.dpid, name: name, color: color };
+                });
+
+                const formattedLinks = links.map(l => ({
+                    source: l.src.dpid,
+                    target: l.dst.dpid
+                }));
+
+                updateGraph(nodes, formattedLinks);
+            } catch (err) {
+                console.error("Topology poll failed:", err);
+            }
+        }
+
+        function updateGraph(nodes, links) {
+            const link = linkGroup.selectAll("line").data(links, d => `${d.source}-${d.target}`);
+            link.exit().remove();
+            const linkEnter = link.enter().append("line").attr("class", "link");
+
+            const node = nodeGroup.selectAll("g").data(nodes, d => d.id);
+            node.exit().remove();
+            const nodeEnter = node.enter().append("g").attr("class", "node")
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+
+            nodeEnter.append("circle").attr("r", 24).attr("fill", d => d.color);
+            nodeEnter.append("text").attr("text-anchor", "middle").attr("dy", 4).text(d => d.name);
+
+            simulation.nodes(nodes).on("tick", () => {
+                linkGroup.selectAll("line")
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+
+                nodeGroup.selectAll("g")
+                    .attr("transform", d => `translate(${d.x},${d.y})`);
+            });
+
+            simulation.force("link").links(links);
+            simulation.alpha(0.3).restart();
+        }
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x; d.fy = d.y;
+        }
+        function dragged(event, d) {
+            d.fx = event.x; d.fy = event.y;
+        }
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null; d.fy = null;
+        }
+
+        setInterval(fetchTopology, 2000);
+        fetchTopology();
+    </script>
+</body>
+</html>

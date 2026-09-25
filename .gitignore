@@ -1,0 +1,39 @@
+# Virtual Machines and Large Images (Never commit VMs or ISOs)
+Ubuntu/
+VirtualBox/
+Virtual_box/
+*.vdi
+*.vbox
+*.vbox-prev
+*.iso
+*.img
+
+# Python and Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ryu-env/
+.venv/
+
+# Logs and Scratch Files
+*.log
+*.log.*
+/tmp/
+.user_uploaded/
+.system_generated/
+
+# OS and Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Mininet runtime artifacts
+*.pid
+mn-*.pid
