@@ -67,11 +67,11 @@ def run_cross_validation(dataset_path=None, output_dir=None):
     for lbl, cnt in counts.items():
         print(f"    - {lbl:16s}: {cnt:4d} samples ({cnt/len(df)*100:5.1f}%)")
 
-    # Features and labels
+    # Features and labels (pure network telemetry)
     feature_cols = [
-        'packet_rate', 'byte_rate', 'flow_duration_sec',
-        'ip_src_count', 'ip_src_entropy', 'avg_packet_size',
-        'std_packet_size', 'port_status', 'rx_dropped', 'tx_dropped'
+        'packet_rate', 'byte_rate', 'ip_src_count',
+        'ip_src_entropy', 'avg_packet_size', 'std_packet_size',
+        'port_status', 'rx_dropped', 'tx_dropped'
     ]
 
     X = df[feature_cols].copy().replace([np.inf, -np.inf], np.nan).fillna(0)

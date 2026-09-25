@@ -36,7 +36,7 @@ sys.path.append(os.path.join(BASE_DIR, 'topology'))
 from topo_multi_path import MultiPathTopo
 
 FEATURE_COLS = [
-    "packet_rate", "byte_rate", "flow_duration_sec", "ip_src_count",
+    "packet_rate", "byte_rate", "ip_src_count",
     "ip_src_entropy", "avg_packet_size", "std_packet_size",
     "port_status", "rx_dropped", "tx_dropped"
 ]

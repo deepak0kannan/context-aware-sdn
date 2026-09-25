@@ -48,11 +48,11 @@ def train_and_evaluate(dataset_path=None, model_dir=None):
     print(df['label'].value_counts())
     print("=" * 60)
 
-    # Feature selection
+    # Feature selection: pure network telemetry (no temporal leakage)
     feature_cols = [
-        'packet_rate', 'byte_rate', 'flow_duration_sec',
-        'ip_src_count', 'ip_src_entropy', 'avg_packet_size',
-        'std_packet_size', 'port_status', 'rx_dropped', 'tx_dropped'
+        'packet_rate', 'byte_rate', 'ip_src_count',
+        'ip_src_entropy', 'avg_packet_size', 'std_packet_size',
+        'port_status', 'rx_dropped', 'tx_dropped'
     ]
 
     # Clean missing/infinite values
