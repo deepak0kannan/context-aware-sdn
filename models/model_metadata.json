@@ -1,9 +1,8 @@
 {
-  "model_type": "GradientBoosting",
+  "model_type": "RandomForest",
   "features": [
     "packet_rate",
     "byte_rate",
-    "flow_duration_sec",
     "ip_src_count",
     "ip_src_entropy",
     "avg_packet_size",
@@ -19,7 +18,7 @@
     "normal",
     "slow_congestion"
   ],
-  "accuracy": 1.0,
-  "cv_accuracy_mean": 0.8276190476190477,
-  "cv_accuracy_std": 0.04708269369260296
+  "accuracy": 0.8016528925619835,
+  "cv_accuracy_mean": 0.8113187285223367,
+  "cv_accuracy_std": 0.02886393381722845
 }
