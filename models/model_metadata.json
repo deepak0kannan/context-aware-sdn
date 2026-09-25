@@ -1,0 +1,25 @@
+{
+  "model_type": "GradientBoosting",
+  "features": [
+    "packet_rate",
+    "byte_rate",
+    "flow_duration_sec",
+    "ip_src_count",
+    "ip_src_entropy",
+    "avg_packet_size",
+    "std_packet_size",
+    "port_status",
+    "rx_dropped",
+    "tx_dropped"
+  ],
+  "classes": [
+    "ddos",
+    "flash_crowd",
+    "link_failure",
+    "normal",
+    "slow_congestion"
+  ],
+  "accuracy": 1.0,
+  "cv_accuracy_mean": 0.8276190476190477,
+  "cv_accuracy_std": 0.04708269369260296
+}
