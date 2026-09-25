@@ -138,7 +138,7 @@ An interactive Streamlit demo application is provided to inspect the network top
 pip install -r requirements.txt
 
 # Launch interactive dashboard
-streamlit run app.py
+streamlit run streamlit_app.py
 ```
 
 ---
@@ -181,7 +181,7 @@ python3 src/ml/train_classifier.py
 ```text
 ├── Context_Aware_SDN_Presentation.pdf   # 14-slide compiled PDF presentation
 ├── Context_Aware_SDN_Presentation.pptx  # 14-slide widescreen PowerPoint presentation
-├── app.py                               # Interactive Streamlit demo application
+├── streamlit_app.py                     # Interactive Streamlit demo application
 ├── requirements.txt                     # Python package dependencies
 ├── generate_presentation.py             # Presentation generator script (python-pptx)
 ├── convert_to_pdf.ps1                   # PowerPoint-to-PDF COM automation script
