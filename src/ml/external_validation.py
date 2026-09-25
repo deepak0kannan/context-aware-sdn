@@ -55,10 +55,13 @@ def collect_external_dataset(rounds=2, scenario_duration=22):
 
     if os.path.exists(dataset_file):
         os.remove(dataset_file)
+    if os.path.exists("/tmp/active_label.txt"):
+        os.remove("/tmp/active_label.txt")
 
     info("=== Step 1: Clearing previous state & starting Ryu Controller ===\n")
     os.system("killall -9 ryu-manager 2>/dev/null || true")
     os.system("sudo mn -c > /dev/null 2>&1")
+    set_active_label("normal")
     time.sleep(1)
 
     # Launch Ryu monitor configured to write to external dataset CSV
@@ -110,46 +113,32 @@ def collect_external_dataset(rounds=2, scenario_duration=22):
 
         for sc in scenarios:
             set_active_label(sc)
+            time.sleep(1.5)
 
             if sc == "normal":
-                info(f"[*] Normal Traffic on {cfg['norm_host'].name} ({cfg['norm_rate']})...\n")
-                cfg['norm_host'].cmd(f"iperf3 -c 10.0.0.6 -b {cfg['norm_rate']} -t {scenario_duration} > /dev/null 2>&1 &")
+                info(f"[*] [Round {r}] Normal traffic from {cfg['norm_host'].name} ({cfg['norm_rate']}) for {scenario_duration}s...\n")
+                cfg['norm_host'].cmd(f"python3 {traffic_dir}/traffic_normal.py --target 10.0.0.6 --duration {scenario_duration} --rate {cfg['norm_rate']}")
 
             elif sc == "flash_crowd":
-                active_clients = [h1, h2, h3, h4, h5][:cfg["clients"]]
-                client_names = [c.name for c in active_clients]
-                info(f"[*] Flash Crowd Surge from {client_names}...\n")
-                for c in active_clients:
-                    c.cmd(f"iperf3 -c 10.0.0.6 -b 2M -t {scenario_duration} > /dev/null 2>&1 &")
+                info(f"[*] [Round {r}] Flash-Crowd surge ({cfg['clients']} clients) for {scenario_duration}s...\n")
+                h1.cmd(f"python3 {traffic_dir}/traffic_flash_crowd.py --target 10.0.0.6 --duration {scenario_duration} --clients {cfg['clients']}")
 
             elif sc == "ddos":
-                atk_type = cfg["attack"]
-                pps = cfg["pps"]
-                info(f"[*] DDoS Attack ({atk_type.upper()} flood @ {pps} pps)...\n")
-                h1.cmd(f"python3 {traffic_dir}/traffic_ddos.py --target 10.0.0.6 --pps {pps} --duration {scenario_duration} --attack-type {atk_type} > /dev/null 2>&1 &")
+                info(f"[*] [Round {r}] DDoS {cfg['attack'].upper()} attack ({cfg['pps']} pps) for {scenario_duration}s...\n")
+                h2.cmd(f"python3 {traffic_dir}/traffic_ddos.py --target 10.0.0.6 --duration {scenario_duration} --pps {cfg['pps']} --type {cfg['attack']}")
 
             elif sc == "slow_congestion":
-                steps = cfg["cong_steps"]
-                info(f"[*] Slow Congestion ({steps} steps)...\n")
-                h2.cmd(f"python3 {traffic_dir}/traffic_congestion.py --target 10.0.0.6 --duration {scenario_duration} --steps {steps} > /dev/null 2>&1 &")
+                info(f"[*] [Round {r}] Slow Congestion ({cfg['cong_steps']} steps) for {scenario_duration}s...\n")
+                h3.cmd(f"python3 {traffic_dir}/traffic_congestion.py --target 10.0.0.6 --duration {scenario_duration} --steps {cfg['cong_steps']}")
 
             elif sc == "link_failure":
-                cut_sec = cfg["cut_time"]
-                info(f"[*] Link Failure Simulation (cut core link for {cut_sec}s)...\n")
-                h1.cmd(f"iperf3 -c 10.0.0.6 -b 2M -t {scenario_duration} > /dev/null 2>&1 &")
-                time.sleep(2)
-                os.system(f"bash {traffic_dir}/link_failure.sh down s1-eth6")
-                time.sleep(cut_sec)
-                os.system(f"bash {traffic_dir}/link_failure.sh up s1-eth6")
+                info(f"[*] [Round {r}] Link Failure (cut duration {cfg['cut_time']}s) for {scenario_duration}s...\n")
+                h1.cmd(f"python3 {traffic_dir}/traffic_normal.py --target 10.0.0.6 --duration {scenario_duration} &")
+                time.sleep(4)
+                os.system(f"bash {traffic_dir}/link_failure.sh s1-eth6 {cfg['cut_time']}")
+                time.sleep(max(1, scenario_duration - cfg['cut_time'] - 5))
 
-            # Collect telemetry for scenario duration
-            time.sleep(scenario_duration)
-
-            # Cleanup background processes & short 3s cooldown
-            os.system("pkill -f 'iperf3 -c' || true")
-            os.system("pkill -f traffic_ddos || true")
-            os.system("pkill -f traffic_congestion || true")
-            time.sleep(3)
+            time.sleep(2)  # Cooldown
 
     info("\n=== Step 4: Finalizing External Dataset Collection ===\n")
     net.stop()
@@ -194,17 +183,27 @@ def run_external_validation(dataset_file=None):
     # Load model
     model = joblib.load(model_file)
 
+    meta_path = os.path.join(PROJECT_DIR, 'models', 'model_metadata.json')
+    if os.path.exists(meta_path):
+        with open(meta_path, 'r') as f:
+            classes = json.load(f).get('classes', ['ddos', 'flash_crowd', 'link_failure', 'normal', 'slow_congestion'])
+    else:
+        classes = ['ddos', 'flash_crowd', 'link_failure', 'normal', 'slow_congestion']
+
     # Run predictions
     y_pred = model.predict(X_ext)
     y_proba = model.predict_proba(X_ext)
 
+    # Map predictions to string labels if model outputs integer class indices
+    if isinstance(y_pred[0], (int, np.integer)):
+        y_pred = np.array([classes[idx] for idx in y_pred])
+
     # Compute metrics
     acc = accuracy_score(y_ext, y_pred)
-    classes = list(model.classes_)
     prec, rec, f1, _ = precision_recall_fscore_support(y_ext, y_pred, average='macro', zero_division=0)
     
-    rep_dict = classification_report(y_ext, y_pred, output_dict=True, zero_division=0)
-    rep_text = classification_report(y_ext, y_pred, zero_division=0)
+    rep_dict = classification_report(y_ext, y_pred, labels=classes, output_dict=True, zero_division=0)
+    rep_text = classification_report(y_ext, y_pred, labels=classes, zero_division=0)
     cm = confusion_matrix(y_ext, y_pred, labels=classes)
 
     print("\n" + "=" * 65)
