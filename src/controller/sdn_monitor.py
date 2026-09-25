@@ -57,7 +57,7 @@ class SDNMonitorController(MultiPathSwitch):
         # Current scenario label (for dataset generation: 'normal', 'flash_crowd', 'ddos', 'congestion', 'link_failure')
         self.label_file = "/tmp/active_label.txt"
         self.current_label = "normal"
-        self.log_file = os.path.expanduser("~/sdn_project/data/sdn_dataset.csv")
+        self.log_file = os.environ.get("SDN_DATASET_FILE", os.path.expanduser("~/sdn_project/data/sdn_dataset.csv"))
         self.init_csv_log()
 
         # Spawn periodic monitoring greenlet

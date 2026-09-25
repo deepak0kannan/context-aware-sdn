@@ -1,0 +1,123 @@
+{
+  "dataset_size": 603,
+  "class_distribution": {
+    "normal": 128,
+    "ddos": 123,
+    "flash_crowd": 120,
+    "slow_congestion": 120,
+    "link_failure": 112
+  },
+  "cross_validation_k": 10,
+  "champion_model": "Gradient Boosting",
+  "champion_cv_accuracy": 0.9254371584699455,
+  "all_model_results": {
+    "Gradient Boosting": {
+      "cv_accuracy_mean": 0.9254371584699455,
+      "cv_accuracy_std": 0.02889502831236412,
+      "train_accuracy_mean": 1.0,
+      "generalization_gap": 0.07456284153005455,
+      "f1_macro_mean": 0.9248715870059199,
+      "precision_macro_mean": 0.9284641192141192,
+      "recall_macro_mean": 0.9249650349650349,
+      "confidence_interval_95": [
+        0.9075278343756096,
+        0.9433464825642813
+      ]
+    },
+    "Random Forest": {
+      "cv_accuracy_mean": 0.869016393442623,
+      "cv_accuracy_std": 0.043287381143924414,
+      "train_accuracy_mean": 0.9859955284635719,
+      "generalization_gap": 0.11697913502094881,
+      "f1_macro_mean": 0.8690899099234931,
+      "precision_macro_mean": 0.879805340084752,
+      "recall_macro_mean": 0.8677039627039628,
+      "confidence_interval_95": [
+        0.8421865966443324,
+        0.8958461902409137
+      ]
+    },
+    "Decision Tree": {
+      "cv_accuracy_mean": 0.8043169398907104,
+      "cv_accuracy_std": 0.03698727035553973,
+      "train_accuracy_mean": 0.874701501158658,
+      "generalization_gap": 0.07038456126794757,
+      "f1_macro_mean": 0.8103767638554883,
+      "precision_macro_mean": 0.8478976578976578,
+      "recall_macro_mean": 0.805955710955711,
+      "confidence_interval_95": [
+        0.7813919922145478,
+        0.827241887566873
+      ]
+    },
+    "K-Nearest Neighbors": {
+      "cv_accuracy_mean": 0.7795081967213114,
+      "cv_accuracy_std": 0.03715465264866864,
+      "train_accuracy_mean": 0.8584881042180588,
+      "generalization_gap": 0.07897990749674733,
+      "f1_macro_mean": 0.7780192742868188,
+      "precision_macro_mean": 0.804826960792905,
+      "recall_macro_mean": 0.7758741258741259,
+      "confidence_interval_95": [
+        0.7564795044250401,
+        0.8025368890175828
+      ]
+    }
+  },
+  "confusion_matrix": [
+    [
+      116,
+      4,
+      0,
+      0,
+      3
+    ],
+    [
+      5,
+      110,
+      1,
+      3,
+      1
+    ],
+    [
+      0,
+      0,
+      102,
+      7,
+      3
+    ],
+    [
+      0,
+      4,
+      5,
+      119,
+      0
+    ],
+    [
+      5,
+      0,
+      4,
+      0,
+      111
+    ]
+  ],
+  "classes": [
+    "ddos",
+    "flash_crowd",
+    "link_failure",
+    "normal",
+    "slow_congestion"
+  ],
+  "features": [
+    "packet_rate",
+    "byte_rate",
+    "flow_duration_sec",
+    "ip_src_count",
+    "ip_src_entropy",
+    "avg_packet_size",
+    "std_packet_size",
+    "port_status",
+    "rx_dropped",
+    "tx_dropped"
+  ]
+}
