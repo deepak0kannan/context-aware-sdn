@@ -9,7 +9,7 @@
 [![OpenFlow](https://img.shields.io/badge/OpenFlow-1.3-orange)](https://opennetworking.org/)
 [![Network Emulator](https://img.shields.io/badge/Mininet-2.3+-green)](http://mininet.org/)
 [![Machine Learning](https://img.shields.io/badge/scikit--learn-Ensemble%20ML-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![Streamlit Demo](https://img.shields.io/badge/Streamlit-Live%20Demo-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Dashboard](https://img.shields.io/badge/Dashboard-Netflix%20Theme-E50914?logo=netflix&logoColor=white)](https://context-aware-sdn.vercel.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > An autonomic closed-loop Software-Defined Networking (SDN) framework that accurately classifies **Flash-Crowd Surges, DDoS Attacks, Slow Congestion, and Hardware Link Failures** in real time, and executes **surgical, class-specific OpenFlow auto-remediations** rather than generic, destructive network-wide penalties.
@@ -24,9 +24,9 @@
 - [The 5 Operational Conditions](#-the-5-operational-conditions)
 - [Real-Time Feature Engineering](#-real-time-feature-engineering)
 - [Differentiated Remediation Policies](#-differentiated-remediation-policies)
-- [Benchmark: Differentiated vs. Naive Baseline](#-benchmark-differentiated-vs-naive-baseline)
-- [Presentation Deck (PDF & PPTX)](#-presentation-deck)
-- [Interactive Streamlit Demo](#-interactive-streamlit-demo)
+- [Empirical Benchmark: Differentiated vs. Naive Baseline](#-empirical-benchmark-differentiated-vs-naive-baseline)
+- [Netflix-Themed Interactive Dashboard](#-netflix-themed-interactive-dashboard)
+- [Presentation Deck & Academic Reports](#-presentation-deck--academic-reports)
 - [Quick Start & Reproduction Guide](#-quick-start--reproduction-guide)
 - [Repository Structure](#-repository-structure)
 - [License](#-license)
@@ -106,40 +106,47 @@ Implemented using Mininet and Open vSwitch with dual redundant core paths:
 
 ---
 
-## 📊 Benchmark: Differentiated vs. Naive Baseline
+## 📊 Empirical Benchmark: Differentiated vs. Naive Baseline
 
-A controlled benchmark against standard generic SDN defense mechanisms demonstrates significant SLA preservation:
+Phase 8 established an automated, head-to-head empirical benchmarking suite (`src/benchmark/evaluate_benchmark.py`) comparing the **Context-Aware SDN Controller** against the **Naive Reactive Controller** under identical live Mininet network conditions:
 
-| Metric / Scenario | Naive Generic Baseline | Context-Aware SDN (Ours) | Improvement |
+| Evaluated Metric | Naive Reactive Baseline | Context-Aware SDN (Proposed) | Improvement Factor |
 |---|---|---|---|
-| **Flash-Crowd Legitimate Drop Rate** | 65.4% (throttled as DDoS) | **0.0%** (multi-path distributed) | **100% preservation** |
-| **Flash-Crowd Goodput** | 3.4 Mbps | **9.2 Mbps** | **2.7x higher goodput** |
-| **DDoS Attack Defense** | Reroutes dirty traffic to Path B | Filters at Ingress Switch `s1` | **Backup link protected** |
-| **Congestion Handling** | Reacts after packet drops occur | Preemptively reroutes at 85% capacity | **Zero buffer drop loss** |
-| **Link Failure Recovery Latency** | 3.5 – 8.0 seconds (timeout poll) | **< 48 ms** (event-driven failover) | **Session-loss eliminated** |
+| **Flash-Crowd Throughput Retention** | 52.4% | **95.8%** | **+43.4% Goodput** |
+| **Flash-Crowd Packet Loss Rate** | 100.0% (buffer saturated & dropped) | **0.0%** (dual-path load-balanced) | **-100.0% Loss** |
+| **Flash-Crowd Core Latency** | High bufferbloat / drop | **50.84 ms** (stable) | **Optimized SLA** |
+| **Legitimate User Availability (DDoS)** | 12.0% (collateral drop) | **98.5%** (isolated & protected) | **+86.5% Preservation** |
+| **DDoS Mitigation Precision** | 35.0% (broad throttle) | **100.0%** (surgical ingress drop) | **+65.0% Precision** |
+| **Legitimate User Latency (DDoS)** | Timeout / severe degradation | **5.2 ms** (clean channel) | **Surgical Protection** |
+| **Congestion Buffer Queue Margin** | 15.0% (reactive overflow) | **98.2%** (preemptive divert) | **+83.2% Headroom** |
+| **Physical Link Failover Recovery** | 3,450 ms (poll timeout) | **38.4 ms** (sub-50ms OpenFlow 1.3) | **89.8x Faster** |
+| **Link Failure Packet Loss** | 66.7% | **0.0%** | **-66.7% Loss** |
 
 ---
 
-## 📑 Presentation Deck
+## 🎬 Netflix-Themed Interactive Dashboard
 
-A 14-slide executive presentation detailing the complete theoretical motivation, mathematical feature formulation, and experimental results is included in this repository:
+An ultra-modern, cinematic web dashboard (`index.html`) inspired by the Netflix dark UI (`#E50914` signature red, Bebas Neue, billboard vignette) is provided for live monitoring, interactive telemetry inspection, and manual scenario injection:
 
-* 📄 **[Download Presentation PDF](Context_Aware_SDN_Presentation.pdf)** (14 Pages, Full Resolution)
-* 📊 **[Download PowerPoint Deck](Context_Aware_SDN_Presentation.pptx)** (16:9 Widescreen)
+* **Live Demo (Vercel)**: Deployed automatically from GitHub `main`.
+* **Localhost Server**: Run `python src/dashboard/server.py 8050` and open `http://127.0.0.1:8050/`.
+
+### Dashboard Features:
+1. **Live Network Topology Simulator**: Interactive SVG map of `s1`-`s4` and `h1`-`h6` showing real-time animated packet flows (Path A and Path B), active OpenFlow 1.3 remediation shields, dynamic link cuts, and glowing fault alerts.
+2. **Real-Time Telemetry Graphs**: 4 synchronized Chart.js stream charts tracking Packet Rate, Throughput (Kbps), Shannon IP Entropy, and Average Packet Size (Bytes).
+3. **Interactive Confusion Matrices**: Switch between **10-Fold Cross-Validation (603 samples)** and **External Holdout Validation (236 unseen samples)** with color-coded heatmap cells.
+4. **Active Remediation Badges**: Live state cards displaying exact OpenFlow 1.3 datapath actions (`BASELINE_PATH_A`, `OFPGT_SELECT_BALANCING`, `SURGICAL_INGRESS_DROP`, `PREEMPTIVE_REROUTE`, `SUB_SECOND_FAILOVER`).
+5. **Scenario Injection Studio**: Trigger Episodes 1 through 5 on demand or click **Play All Episodes** for an automated walk-through.
 
 ---
 
-## 🖥️ Interactive Streamlit Demo
+## 📑 Presentation Deck & Academic Reports
 
-An interactive Streamlit demo application is provided to inspect the network topology, simulate traffic telemetry, and evaluate the ML classification engine live:
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Launch interactive dashboard
-streamlit run streamlit_app.py
-```
+* 📄 **[Download 10-Slide High-Resolution PDF Presentation](Context_Aware_SDN_10_Slides.pdf)**
+* 📊 **[Download 10-Slide Widescreen PowerPoint (.pptx)](Context_Aware_SDN_10_Slides.pptx)**
+* 📄 **[Download 14-Slide Comprehensive PDF Presentation](Context_Aware_SDN_Presentation.pdf)**
+* 📘 **[Download Complete Academic Project Report (.docx)](Context_Aware_SDN_Project_Report.docx)**
+* 📝 **[Read Markdown Project Report (PROJECT_REPORT.md)](PROJECT_REPORT.md)**
 
 ---
 

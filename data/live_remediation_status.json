@@ -1,0 +1,20 @@
+{
+  "timestamp": 1792842126.533546,
+  "formatted_time": "17:12:06",
+  "detected_class": "flash_crowd",
+  "confidence": 0.942,
+  "remediation_state": "LOAD_BALANCED",
+  "last_action": "OFPGT_SELECT_MULTIPATH",
+  "action_description": "Installed OpenFlow 1.3 SELECT group table (Group 50) across Path A and Path B.",
+  "telemetry": {
+    "packet_rate": 480.5,
+    "byte_rate": 680.0,
+    "unique_ips": 5,
+    "entropy": 2.32,
+    "avg_packet_size": 1415,
+    "std_packet_size": 42.1,
+    "port_status": 1,
+    "rx_dropped": 0,
+    "tx_dropped": 2
+  }
+}
