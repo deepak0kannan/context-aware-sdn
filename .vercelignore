@@ -9,6 +9,7 @@ data/
 VirtualBox/
 Virtual_box/
 Ubuntu/
+Mininet/
 convert_to_pdf.ps1
 .system_generated/
 .user_uploaded/

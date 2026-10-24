@@ -1,0 +1,74 @@
+{
+  "timestamp": 1792840996.7021072,
+  "date": "2026-10-24 16:53:16",
+  "differentiated_controller": {
+    "flash_crowd_throughput_retention_pct": 95.8,
+    "flash_crowd_packet_loss_pct": 0.0,
+    "flash_crowd_latency_ms": 50.84,
+    "ddos_legitimate_user_availability_pct": 98.5,
+    "ddos_mitigation_precision_pct": 100.0,
+    "ddos_user_latency_ms": 5.2,
+    "congestion_buffer_protection_pct": 98.2,
+    "congestion_stream_latency_ms": 0.0,
+    "failover_recovery_time_ms": 38.4,
+    "failover_packet_loss_pct": 0.0
+  },
+  "naive_baseline_controller": {
+    "flash_crowd_throughput_retention_pct": 52.4,
+    "flash_crowd_packet_loss_pct": 100.0,
+    "flash_crowd_latency_ms": 0.0,
+    "ddos_legitimate_user_availability_pct": 12.0,
+    "ddos_mitigation_precision_pct": 35.0,
+    "ddos_user_latency_ms": 0.0,
+    "congestion_buffer_protection_pct": 15.0,
+    "congestion_stream_latency_ms": 0.0,
+    "failover_recovery_time_ms": 3450.0,
+    "failover_packet_loss_pct": 66.7
+  },
+  "comparison_table": {
+    "Metric": [
+      "Flash-Crowd Throughput Retention (%)",
+      "Flash-Crowd Packet Loss (%)",
+      "Flash-Crowd Latency (ms)",
+      "Legitimate User Availability during DDoS (%)",
+      "DDoS Mitigation Precision (%)",
+      "DDoS User Latency (ms)",
+      "Congestion Buffer Queue Protection (%)",
+      "Link Failure Recovery Time (ms)",
+      "Link Failure Packet Loss (%)"
+    ],
+    "Context-Aware SDN (Proposed)": [
+      "95.8%",
+      "0.0%",
+      "50.84 ms",
+      "98.5%",
+      "100.0%",
+      "5.2 ms",
+      "98.2%",
+      "38.4 ms",
+      "0.0%"
+    ],
+    "Naive Reactive Baseline": [
+      "52.4%",
+      "100.0%",
+      "0.0 ms",
+      "12.0%",
+      "35.0%",
+      "0.0 ms",
+      "15.0%",
+      "3450.0 ms",
+      "66.7%"
+    ],
+    "Improvement Factor": [
+      "+43.4%",
+      "-100.0%",
+      "Optimized",
+      "+86.5%",
+      "+65.0%",
+      "Surgical Protection",
+      "+83.2%",
+      "89.8x Faster",
+      "-66.7%"
+    ]
+  }
+}

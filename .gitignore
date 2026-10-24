@@ -2,11 +2,14 @@
 Ubuntu/
 VirtualBox/
 Virtual_box/
+Mininet/
 *.vdi
 *.vbox
 *.vbox-prev
 *.iso
 *.img
+*.exe
+*.vbox-extpack
 
 # Python and Bytecode
 __pycache__/

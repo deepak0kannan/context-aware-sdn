@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%" style="background:#0f172a; font-family:'Segoe UI', system-ui, -apple-system, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrowRose" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f43f5e"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="45" text-anchor="middle" fill="#38bdf8" font-size="24" font-weight="bold" letter-spacing="1">CONTEXT-AWARE SDN: SYSTEM ARCHITECTURE BLOCK DIAGRAM</text>
+  <text x="600" y="70" text-anchor="middle" fill="#94a3b8" font-size="13">Unified Multi-Class Network Anomaly Classification &amp; Differentiated Auto-Remediation</text>
+
+  <!-- LAYER 4: ORCHESTRATION & DASHBOARD (TOP) -->
+  <rect x="40" y="90" width="1120" height="90" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="60" y="115" fill="#38bdf8" font-size="13" font-weight="bold">MANAGEMENT, EVALUATION &amp; USER INTERACTION LAYER</text>
+  
+  <rect x="60" y="125" width="250" height="42" rx="6" fill="#0f172a" stroke="#0284c7" stroke-width="1"/>
+  <text x="185" y="143" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Traffic Generation Suite</text>
+  <text x="185" y="158" text-anchor="middle" fill="#94a3b8" font-size="9.5">Normal, Flash, DDoS, Congestion, Cut</text>
+
+  <rect x="330" y="125" width="250" height="42" rx="6" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+  <text x="455" y="143" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Streamlit Live Dashboard</text>
+  <text x="455" y="158" text-anchor="middle" fill="#94a3b8" font-size="9.5">streamlit_app.py Interactive Web UI</text>
+
+  <rect x="600" y="125" width="260" height="42" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="730" y="143" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Telemetry &amp; Event Persistence</text>
+  <text x="730" y="158" text-anchor="middle" fill="#94a3b8" font-size="9.5">live_remediation_status.json / logs</text>
+
+  <rect x="880" y="125" width="260" height="42" rx="6" fill="#0f172a" stroke="#c084fc" stroke-width="1"/>
+  <text x="1010" y="143" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Topology Visualizer &amp; Reports</text>
+  <text x="1010" y="158" text-anchor="middle" fill="#94a3b8" font-size="9.5">D3.js GUI &amp; 14-Slide PDF/PPTX Decks</text>
+
+  <!-- LAYER 3: RYU SDN CONTROLLER (MIDDLE) -->
+  <rect x="40" y="210" width="1120" height="320" rx="16" fill="#132238" stroke="#6366f1" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="60" y="240" fill="#818cf8" font-size="15" font-weight="bold">RYU SDN CONTROLLER &amp; AUTONOMIC CLOSED-LOOP ENGINE (Control Plane)</text>
+
+  <!-- Module 1: Base Forwarding -->
+  <rect x="60" y="255" width="250" height="255" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="185" y="282" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="bold">Base Forwarding &amp; Poller</text>
+  <text x="75" y="310" fill="#cbd5e1" font-size="10.5">File: multipath_switch.py</text>
+  <text x="75" y="328" fill="#cbd5e1" font-size="10.5">File: sdn_monitor.py</text>
+  <text x="75" y="355" fill="#94a3b8" font-size="10">• 2.0s Periodic Stats Loop</text>
+  <text x="75" y="375" fill="#94a3b8" font-size="10">• OFPFlowStatsRequest</text>
+  <text x="75" y="395" fill="#94a3b8" font-size="10">• OFPPortStatsRequest</text>
+  <text x="75" y="415" fill="#94a3b8" font-size="10">• EventOFPPacketIn Hook</text>
+  <text x="75" y="435" fill="#94a3b8" font-size="10">• EventOFPPortStatus Handler</text>
+  <text x="75" y="465" fill="#38bdf8" font-size="9.5">Dual-Channel Telemetry Stream</text>
+
+  <!-- Module 2: Feature Engineering -->
+  <rect x="330" y="255" width="250" height="255" rx="10" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="455" y="282" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="bold">Sliding Feature Math</text>
+  <text x="345" y="310" fill="#cbd5e1" font-size="10.5">Mathematical Telemetry Formulation</text>
+  <text x="345" y="335" fill="#94a3b8" font-size="10">• Shannon IP Entropy H(X)</text>
+  <text x="345" y="355" fill="#94a3b8" font-size="10">• Packet Rate ΔP / Δt (pps)</text>
+  <text x="345" y="375" fill="#94a3b8" font-size="10">• Byte Rate ΔB / Δt (Bps)</text>
+  <text x="345" y="395" fill="#94a3b8" font-size="10">• Unique Source IPs Count</text>
+  <text x="345" y="415" fill="#94a3b8" font-size="10">• Packet Size Mean (μ) &amp; Std (σ)</text>
+  <text x="345" y="435" fill="#94a3b8" font-size="10">• Core Port Status (UP=1 / DOWN=0)</text>
+  <text x="345" y="455" fill="#94a3b8" font-size="10">• RX/TX Dropped Counter Deltas</text>
+  <text x="345" y="485" fill="#fbbf24" font-size="9.5">9-Dimensional Feature Vector</text>
+
+  <!-- Module 3: ML Inference -->
+  <rect x="600" y="255" width="260" height="255" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <text x="730" y="282" text-anchor="middle" fill="#34d399" font-size="13" font-weight="bold">ML Classifier Engine</text>
+  <text x="615" y="310" fill="#cbd5e1" font-size="10.5">Model: sdn_classifier.joblib</text>
+  <text x="615" y="335" fill="#94a3b8" font-size="10">• Champion: Gradient Boosting</text>
+  <text x="615" y="355" fill="#94a3b8" font-size="10">• 10-Fold CV: 92.54% Accuracy</text>
+  <text x="615" y="375" fill="#94a3b8" font-size="10">• Live Inference Latency: &lt; 15 ms</text>
+  <text x="615" y="400" fill="#34d399" font-size="10.5" font-weight="bold">Multi-Class Predictions:</text>
+  <text x="615" y="420" fill="#94a3b8" font-size="9.5">1. Normal Baseline</text>
+  <text x="615" y="438" fill="#94a3b8" font-size="9.5">2. Flash-Crowd Surge</text>
+  <text x="615" y="456" fill="#94a3b8" font-size="9.5">3. DDoS Flood Attack</text>
+  <text x="615" y="474" fill="#94a3b8" font-size="9.5">4. Slow Buffer Congestion</text>
+  <text x="615" y="492" fill="#94a3b8" font-size="9.5">5. Physical Link Failure</text>
+
+  <!-- Module 4: Differentiated Remediation -->
+  <rect x="880" y="255" width="260" height="255" rx="10" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5"/>
+  <text x="1010" y="282" text-anchor="middle" fill="#f43f5e" font-size="13" font-weight="bold">Differentiated Remediation</text>
+  <text x="895" y="310" fill="#cbd5e1" font-size="10.5">File: remediation_engine.py</text>
+  <text x="895" y="335" fill="#94a3b8" font-size="9.5"><tspan font-weight="bold" fill="#34d399">Flash-Crowd:</tspan> OFPGT_SELECT Group</text>
+  <text x="895" y="350" fill="#64748b" font-size="9">50/50 Dual Core Load Balance (0% drop)</text>
+  <text x="895" y="370" fill="#94a3b8" font-size="9.5"><tspan font-weight="bold" fill="#f43f5e">DDoS Flood:</tspan> Priority 150 FlowMod</text>
+  <text x="895" y="385" fill="#64748b" font-size="9">Surgical drop of attacker at Ingress s1</text>
+  <text x="895" y="405" fill="#94a3b8" font-size="9.5"><tspan font-weight="bold" fill="#fbbf24">Congestion:</tspan> Priority 80 FlowMod</text>
+  <text x="895" y="420" fill="#64748b" font-size="9">Preemptive bulk shift to Path B</text>
+  <text x="895" y="440" fill="#94a3b8" font-size="9.5"><tspan font-weight="bold" fill="#c084fc">Link Failure:</tspan> Priority 120 FlowMod</text>
+  <text x="895" y="455" fill="#64748b" font-size="9">Sub-50ms instant failover to Path B</text>
+  <text x="895" y="475" fill="#94a3b8" font-size="9.5"><tspan font-weight="bold" fill="#38bdf8">Normal:</tspan> Clear override rules</text>
+
+  <!-- Arrows in Controller -->
+  <line x1="310" y1="380" x2="326" y2="380" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#arrowAmber)"/>
+  <line x1="580" y1="380" x2="596" y2="380" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrowGreen)"/>
+  <line x1="860" y1="380" x2="876" y2="380" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrowRose)"/>
+
+  <!-- SOUTHBOUND PROTOCOL BAR -->
+  <rect x="40" y="555" width="1120" height="45" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="600" y="575" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="bold">SOUTHBOUND CONTROL INTERFACE: OPENFLOW 1.3 PROTOCOL (TCP Port 6653)</text>
+  <text x="600" y="591" text-anchor="middle" fill="#94a3b8" font-size="9.5">Stats Replies, Port-Status Alerts, Packet-In ◄════════════════════► Flow-Mod Rules, Group-Mod (SELECT) Tables, Packet-Out</text>
+
+  <!-- Connecting Southbound Arrows -->
+  <line x1="185" y1="510" x2="185" y2="550" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="1010" y1="510" x2="1010" y2="550" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrowRose)"/>
+
+  <!-- LAYER 1: DATA PLANE (BOTTOM) -->
+  <rect x="40" y="625" width="1120" height="240" rx="16" fill="#111c33" stroke="#1e3a8a" stroke-width="2" stroke-dasharray="6,4" filter="url(#shadow)"/>
+  <text x="60" y="652" fill="#60a5fa" font-size="14" font-weight="bold">DATA PLANE: MININET MULTI-PATH TOPOLOGY &amp; OPEN vSWITCHES</text>
+
+  <!-- Client hosts h1-h5 -->
+  <g transform="translate(60, 680)">
+    <rect x="0" y="0" width="60" height="50" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="30" y="22" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Client h1</text>
+    <text x="30" y="38" text-anchor="middle" fill="#94a3b8" font-size="9">10.0.0.1</text>
+
+    <rect x="75" y="0" width="60" height="50" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="105" y="22" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Client h2</text>
+    <text x="105" y="38" text-anchor="middle" fill="#94a3b8" font-size="9">10.0.0.2</text>
+
+    <rect x="150" y="0" width="60" height="50" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="180" y="22" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Client h3</text>
+    <text x="180" y="38" text-anchor="middle" fill="#94a3b8" font-size="9">10.0.0.3</text>
+
+    <rect x="225" y="0" width="60" height="50" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="255" y="22" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Client h4</text>
+    <text x="255" y="38" text-anchor="middle" fill="#94a3b8" font-size="9">10.0.0.4</text>
+
+    <rect x="300" y="0" width="60" height="50" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="330" y="22" text-anchor="middle" fill="#f8fafc" font-size="11" font-weight="bold">Client h5</text>
+    <text x="330" y="38" text-anchor="middle" fill="#94a3b8" font-size="9">10.0.0.5</text>
+    <text x="180" y="70" text-anchor="middle" fill="#38bdf8" font-size="9.5">Access Links: 100 Mbps, 1ms delay</text>
+  </g>
+
+  <!-- Ingress Switch s1 -->
+  <rect x="460" y="705" width="130" height="65" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="525" y="732" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="bold">Ingress Switch s1</text>
+  <text x="525" y="750" text-anchor="middle" fill="#94a3b8" font-size="10">OVS DPID: 0x01</text>
+
+  <!-- Path A Switch s2 -->
+  <rect x="650" y="660" width="150" height="60" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <text x="725" y="684" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">Path A: Switch s2</text>
+  <text x="725" y="702" text-anchor="middle" fill="#94a3b8" font-size="9.5">Core: 10 Mbps, 5ms delay</text>
+
+  <!-- Path B Switch s3 -->
+  <rect x="650" y="755" width="150" height="60" rx="8" fill="#1e293b" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="725" y="779" text-anchor="middle" fill="#818cf8" font-size="11" font-weight="bold">Path B: Switch s3</text>
+  <text x="725" y="797" text-anchor="middle" fill="#94a3b8" font-size="9.5">Core: 10 Mbps, 10ms delay</text>
+
+  <!-- Egress Switch s4 -->
+  <rect x="850" y="705" width="120" height="65" rx="8" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+  <text x="910" y="732" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="bold">Egress Switch s4</text>
+  <text x="910" y="750" text-anchor="middle" fill="#94a3b8" font-size="10">OVS DPID: 0x04</text>
+
+  <!-- Target Server h6 -->
+  <rect x="1020" y="705" width="110" height="65" rx="8" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+  <text x="1075" y="732" text-anchor="middle" fill="#f43f5e" font-size="12" font-weight="bold">Server h6</text>
+  <text x="1075" y="750" text-anchor="middle" fill="#cbd5e1" font-size="10">10.0.0.6</text>
+  <text x="1075" y="763" text-anchor="middle" fill="#94a3b8" font-size="8.5">HTTP / iPerf3</text>
+
+  <!-- Internal Lines in Data Plane -->
+  <line x1="420" y1="737" x2="455" y2="737" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="590" y1="725" x2="645" y2="690" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="590" y1="750" x2="645" y2="785" stroke="#818cf8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="800" y1="690" x2="845" y2="725" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="800" y1="785" x2="845" y2="750" stroke="#818cf8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="970" y1="737" x2="1015" y2="737" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrowRose)"/>
+
+  <!-- Protocol connection between Southbound and Data Plane -->
+  <line x1="525" y1="600" x2="525" y2="700" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowAmber)"/>
+  <line x1="910" y1="600" x2="910" y2="700" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowAmber)"/>
+</svg>

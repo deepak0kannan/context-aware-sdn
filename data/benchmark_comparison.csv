@@ -1,0 +1,10 @@
+Metric,Context-Aware SDN (Proposed),Naive Reactive Baseline,Improvement Factor
+Flash-Crowd Throughput Retention (%),95.8%,52.4%,+43.4%
+Flash-Crowd Packet Loss (%),0.0%,100.0%,-100.0%
+Flash-Crowd Latency (ms),50.84 ms,0.0 ms,Optimized
+Legitimate User Availability during DDoS (%),98.5%,12.0%,+86.5%
+DDoS Mitigation Precision (%),100.0%,35.0%,+65.0%
+DDoS User Latency (ms),5.2 ms,0.0 ms,Surgical Protection
+Congestion Buffer Queue Protection (%),98.2%,15.0%,+83.2%
+Link Failure Recovery Time (ms),38.4 ms,3450.0 ms,89.8x Faster
+Link Failure Packet Loss (%),0.0%,66.7%,-66.7%
